@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário</title>
+    <script>
+        function enviardados(){
+            if(
+                (document.dados.tipo.value=="PF") &&
+                (document.dados.tx_nome.value=="" || document.dados.tx_nome.value.length < 8)
+            ) {
+                formataMsg("Preencha campo NOME corretamente!");
+                document.dados.tx_nome.focus();
+                return false;
+            }
+
+            if(
+                (document.dados.tipo.value=="PJ") &&
+                (document.dados.tx_rz.value=="" || document.dados.tx_rz.value.length < 8)
+            ){
+                formataMsg("Preencha campo RAZÃO SOCIAL corretamente!");
+                document.dados.tx_nome.focus();
+                return false;
+            }
+
+            if(
+                document.dados.tx_email.value == "" ||
+                document.dados.tx_email.value.indexOf('@')== -1 ||
+                document.dados.tx_email.value.indexOf('.')== -1
+                )
+            {
+                formataMsg("Preencha campo E-MAIL corretamente!");
+                document.dados.tx_email.focus();
+                return false;
+            }
+
+            if(
+                document.dados.tx_mensagem.vale == ""
+            ){
+                formataMsg("Preencha o campo MENSAGEM!");
+                document.dados.tx_mensagem.focus();
+                return false;
+            }
+
+            if(
+                document.dados.tx_mensagem.value.length < 50
+            ){
+                formataMsg("É necessário preencher o campo MENSAGEM com mais de 50 caracteres!");
+                document.dados.tx_mensagem.focus();
+                return false;
+            }
+
+            return true;
+        }
+
+        function formataMsg(textoMsg){            
+            document.getElementById("msg").style.color = "red";
+            document.getElementById("msg").textContent = textoMsg;
+        }
+    </script>
+</head>
+<body>
+    <h1>Faça seu cadastro!</h1>
+
+    <div id="msg"></div>
+
+    <br>
+
+    <form method="post" name="dados" id="dados" onsubmit="return enviardados();">
+        Pessoa Física
+        <input type="radio" name="tipo" id="PF" value="PF" checked>
+
+        Pessoa Jurídica
+        <input type="radio" name="tipo" id="PJ" value="PJ">
+
+        <br>
+
+        <div id="cpf">
+            <br>
+            CPF:<br>
+            <input type="text" name="tx_cpf" id="tx_cpf" size="20" maxlength="50">
+            <br><br>
+            Nome completo:<br>
+            <input type="text" name="tx_nome" id="tx_nome" size="52" maxlength="50">
+        </div>
+
+        <div id="cnpj">
+            <br>
+            CNPJ: <br>
+            <input type="text" name="tx_cnpj" id="tx_cnpj" size="20" maxlength="18">
+            <br><br>
+            Razão social:
+            <br>
+            <input type="text" name="tx_rz" id="tx_rz" size="52" maxlength="50">
+        </div>
+        <br>
+        E-mail:<br> 
+        <input type="text" name="tx_email" id="tx_email" size="52" maxlength="50">
+        <br><br>
+        Mensagem:
+        <br>
+        <textarea name="tx_mensagem" cols="53" rows="10" id="tx_mensagem"></textarea>
+
+        <br><br>
+        <input type="submit" value="Enviar dados" name="submit">
+        <input type="reset" value="Redefinir" name="reset">
+    </form>
+</body>
+</html>
